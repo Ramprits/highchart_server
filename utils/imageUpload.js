@@ -9,7 +9,7 @@ const imageUpload = async (base64) => {
     AWS.config.update({accessKeyId: AWSAccessKeyId, secretAccessKey: AWSSecretKey, region: AWS_REGION});
 
     const s3 = new AWS.S3();
-
+    let location = '';
     const base64Data = new Buffer.from(base64.replace(/^data:image\/\w+;base64,/, ""), 'base64');
 
     // const type = base64.split(';')[0].split('/')[1];
@@ -26,20 +26,14 @@ const imageUpload = async (base64) => {
     }
 
     // see: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#upload-property
-    let location = '';
-    let key = '';
+
     try {
         const {Location, Key} = await s3.upload(params).promise();
         location = Location;
-        key = Key;
     } catch (error) {
         console.log(error)
     }
-
-    console.log(location, key);
-
     return location;
-
     // To delete, see: https://gist.github.com/SylarRuby/b3b1430ca633bc5ffec29bbcdac2bd52
 }
 

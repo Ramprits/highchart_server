@@ -1,0 +1,26 @@
+{
+  "name": "highchart",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1010.0",
+    "bluebird": "^3.7.2",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^10.0.0",
+    "express": "~4.16.1",
+    "highcharts-export-server": "^2.1.0",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.1",
+    "multer": "^1.4.3",
+    "multer-s3": "^2.10.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}

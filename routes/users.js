@@ -2,11 +2,13 @@ const express = require('express');
 const router = express.Router();
 const fs = require("fs");
 const chartExporter = require("highcharts-export-server");
+const imageUpload = require("../utils/imageUpload");
+const url = require("url");
 
 chartExporter.initPool();
 
 /* GET users listing. */
-router.post('/', function (req, res, next) {
+router.post('/', async (req, res, next) => {
 
     let chartOptions = {
         chart: {
@@ -72,31 +74,27 @@ router.post('/', function (req, res, next) {
             data: [1216, 1001, 4436, 738, 40]
         }]
     };
+    let fileUrl;
 
 // Export chart using these options
     chartExporter.export({
         type: "png",
-        options:  req.body.options,
-        // By default the width of the chart images is of 600
-        // In this case, we want a big image
+        options: req.body.options,
         width: 1200
-    }, (err, res) => {
-        // Get the image data (base64)
+    }, async (err, res) => {
         let imageb64 = res.data;
-
+        fileUrl = await imageUpload(imageb64)
         // Filename of the output. In this case, we will write the image
         // to the same directory of the initialization script.
-        let outputFile = "./output-chart.png";
+        // let outputFile = "./output-chart.png";
 
         // Save the image data to a file
-        fs.writeFileSync(outputFile, imageb64, "base64", function (err) {
-            if (err) console.log(err);
-        });
-        console.log("The chart has been successfully generated!");
+        // fs.writeFileSync(outputFile, imageb64, "base64", function (err) {
+        //     if (err) console.log(err);
+        // });
         chartExporter.killPool();
     });
-
-    res.send('respond with a resource');
+    res.json({message: "Successfully generated chart", fileUrl});
 });
 
 module.exports = router;

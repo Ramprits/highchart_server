@@ -1,5 +1,5 @@
 require("dotenv").config()
-const { v4: uuidv4 } = require('uuid');
+const {v4: uuidv4} = require('uuid');
 const imageUpload = async (base64) => {
     const AWS = require('aws-sdk');
     const {AWSAccessKeyId, AWSSecretKey, AWS_REGION, BUCKET_NAME} = process.env;
@@ -12,8 +12,8 @@ const imageUpload = async (base64) => {
 
     const base64Data = new Buffer.from(base64.replace(/^data:image\/\w+;base64,/, ""), 'base64');
 
-    const type = base64.split(';')[0].split('/')[1];
-
+    // const type = base64.split(';')[0].split('/')[1];
+    const type = "png";
     const userId = uuidv4();
 
     const params = {

@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
+    "preinstall": "export ACCEPT_HIGHCHARTS_LICENSE=1",
     "start:dev": "nodemon ./bin/www"
   },
   "dependencies": {

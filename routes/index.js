@@ -1,13 +1,8 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const imageUpload = require('../utils/imageUpload')
 
-router.post('/', async function (req, res, next) {
-
-    const url = await imageUpload(req.body.file)
-     res.json({
-        url
-    });
+router.post("/", async function (req, res) {
+  res.status(200).json({ message: "Hello world" });
 });
 
 module.exports = router;
